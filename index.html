@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Bitcoin Clicker Game</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+        }
+        #bitcoinCount {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .buyButton {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .buyButton:hover {
+            background-color: #0056b3;
+        }
+        #clickButton {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #0f0;
+            color: #000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #clickButton:hover {
+            background-color: #00ff00;
+        }
+        h1 {
+            font-size: 36px;
+            color: #0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hacker Bitcoin Clicker Game</h1>
+    <div id="bitcoinCount">Bitcoins: 0</div>
+    <button id="clickButton" onclick="mineBitcoin()">Click to mine Bitcoins</button>
+    <button class="buyButton" onclick="buyItem('upgrade')">Upgrade Miner (Cost: 10)</button>
+    <button class="buyButton" onclick="buyItem('autoClicker')">Auto-Clicker (Cost: 50)</button>
+    <button class="buyButton" onclick="buyItem('doubleIncome')">Double Income (Cost: 100)</button>
+    <button class="buyButton" onclick="buyItem('tripleIncome')">Triple Income (Cost: 500)</button>
+    <button class="buyButton" onclick="buyItem('miningFarm')">Mining Farm (Cost: 1000)</button>
+    
+    <script>
+        let bitcoins = 0;
+        let bitcoinValue = 1;
+        const upgradeCost = 10;
+        const autoClickerCost = 50;
+        const doubleIncomeCost = 100;
+        const tripleIncomeCost = 500;
+        const miningFarmCost = 1000;
+
+        function mineBitcoin() {
+            bitcoins += bitcoinValue;
+            updateUI();
+        }
+
+        function buyItem(item) {
+            switch (item) {
+                case 'upgrade':
+                    if (bitcoins >= upgradeCost) {
+                        bitcoins -= upgradeCost;
+                        bitcoinValue += 1;
+                        updateUI();
+                    } else {
+                        alert("You need at least 10 Bitcoins to upgrade your miner!");
+                    }
+                    break;
+                case 'autoClicker':
+                    if (bitcoins >= autoClickerCost) {
+                        bitcoins -= autoClickerCost;
+                        setInterval(mineBitcoin, 1000); // Auto-click every second
+                        updateUI();
+                    } else {
+                        alert("You need at least 50 Bitcoins to buy an Auto-Clicker!");
+                    }
+                    break;
+                case 'doubleIncome':
+                    if (bitcoins >= doubleIncomeCost) {
+                        bitcoins -= doubleIncomeCost;
+                        bitcoinValue *= 2; // Double the income
+                        updateUI();
+                    } else {
+                        alert("You need at least 100 Bitcoins to double your income!");
+                    }
+                    break;
+                case 'tripleIncome':
+                    if (bitcoins >= tripleIncomeCost) {
+                        bitcoins -= tripleIncomeCost;
+                        bitcoinValue *= 3; // Triple the income
+                        updateUI();
+                    } else {
+                        alert("You need at least 500 Bitcoins to triple your income!");
+                    }
+                    break;
+                case 'miningFarm':
+                    if (bitcoins >= miningFarmCost) {
+                        bitcoins -= miningFarmCost;
+                        bitcoinValue += 10; // Increase income rate significantly
+                        updateUI();
+                    } else {
+                        alert("You need at least 1000 Bitcoins to buy a Mining Farm!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function updateUI() {
+            document.getElementById("bitcoinCount").innerText = `Bitcoins: ${bitcoins}`;
+            document.getElementById("upgradeButton").innerText = `Upgrade Miner (Cost: ${upgradeCost})`;
+        }
+    </script>
+</body>
+</html>
